@@ -37,6 +37,66 @@
     }
   }
 
+  &__Navigation {
+    display: flex;
+    align-items: center;
+  }
+
+  &__IconsList {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+
+    &::after {
+      content: '';
+      display: inline-block;
+      height: 30px;
+      border-left: 1px solid $secondary;
+      margin-left: 20px;
+    }
+  }
+
+  &__NavIcon {
+    position: relative;
+    font-size: 16px;
+    color: $secondaryDark;
+    margin: 0 15px;
+    
+    &_notifyed::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      right: -3px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #FFC06A;
+    }
+  }
+
+  &__Profile {
+    display: flex;
+    align-items: center;
+  }
+
+  &__UserName {
+    font-size: 13px;
+    margin-right: 10px;
+
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 5px;
+      border: 3px solid transparent;
+      border-bottom-color: $secondaryDark;
+      border-right-color: $secondaryDark;
+      margin-left: 15px;
+      transform: rotate(45deg);
+    }
+  }
+
   &__Avatar {
     width: 38px;
   }

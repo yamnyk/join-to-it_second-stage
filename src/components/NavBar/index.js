@@ -12,7 +12,19 @@ const NavBar = props => {
         </button>
         <input className={styles.NavBar__SearchInput} type="text" placeholder="Search transactions, invoices or help"/>
       </form>
-      <img src={user.imgUrl} alt="user" className={styles.NavBar__Avatar}/>
+      
+      <div className={styles.NavBar__Navigation}>
+        <div className={styles.NavBar__IconsList}>
+          <i className={["far fa-life-ring", styles.NavBar__NavIcon].join(' ')}/>
+          <i className={["fas fa-comments", styles.NavBar__NavIcon].join(' ')}/>
+          <i className={["fas fa-bell", styles.NavBar__NavIcon, styles.NavBar__NavIcon_notifyed].join(' ')}/>
+        </div>
+        
+        <div className={styles.NavBar__Profile}>
+          <p className={styles.NavBar__UserName}>{user.name}</p>
+          <img src={user.imgUrl} alt="user" className={styles.NavBar__Avatar}/>
+        </div>
+      </div>
     </div>
   );
 };
