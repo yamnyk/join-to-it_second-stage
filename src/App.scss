@@ -45,6 +45,8 @@ table {
 
 .Container {
   max-width: 1240px;
-  padding: 0 75px;
+  padding: 35px 75px 0;
   margin-left: $sideBarWidth;
+  margin-top: $topNavHeight;
+  background-color: $secondary;
 }

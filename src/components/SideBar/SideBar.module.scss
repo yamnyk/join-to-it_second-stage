@@ -19,6 +19,7 @@
   &__company {
     display: block;
     font-weight: bold;
+    line-height: 20px;
     padding: 25px 20px;
     text-transform: uppercase;
     letter-spacing: 3px;
@@ -26,7 +27,7 @@
     transition: color $transitionMedium linear;
 
     &:hover {
-      color: $secondaryBright;
+      color: $primaryBright;
     }
   }
 
@@ -53,7 +54,7 @@
       display: inline-block;
       height: 100%;
       width: 5px;
-      background-color: $secondaryBright;
+      background-color: $primaryBright;
       opacity: 0;
       transition: opacity $transitionMedium linear;
     }
@@ -63,7 +64,7 @@
       padding-left: 35px;
 
       & .SideBar__Icon {
-        color: $secondaryBright;
+        color: $primaryBright;
       }
 
       &::before {

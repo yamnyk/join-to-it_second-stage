@@ -3,8 +3,10 @@ import {Link} from "react-router-dom";
 import styles from './SideBar.module.scss'
 
 const SideBar = props => {
-  const IconWrap = props => <div className={styles.SideBar__Icon}>{props.children}</div>;
-  const listItems = props.items.map(item => (
+  const {items} = props,
+    IconWrap = props => <div className={styles.SideBar__Icon}>{props.children}</div>;
+  
+  const listItems = items.map(item => (
       <li key={item.id} className={styles.SideBar__Item}>
         <IconWrap>{item.icon}</IconWrap>
         <Link to={item.linkURL} className={styles.SideBar__Link}>{item.text}</Link>

@@ -1,0 +1,43 @@
+@import "src/variables";
+
+.NavBar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: $sideBarWidth;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background-color: white;
+  box-shadow: 0 2px 6px 0 #0000000A;
+
+  &__Search {
+    flex-grow: 1;
+    align-items: center;
+
+    &Submit {
+      border: none;
+      background-color: transparent;
+    }
+
+    &Icon {
+      color: $secondaryDark;
+      font-size: 16px;
+    }
+
+    &Input {
+      width: 90%;
+      border: none;
+      background-color: transparent;
+      padding: 10px;
+      outline: none;
+      font-size: 13px;
+      color: $textColor;
+    }
+  }
+
+  &__Avatar {
+    width: 38px;
+  }
+}
