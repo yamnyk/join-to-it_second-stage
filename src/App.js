@@ -1,24 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss'
+import CustomCalendar from "./components/CustomCalendar";
+import SideBar from "./components/SideBar";
+import {Redirect, Route, Switch} from "react-router-dom";
+import OtherPagesMessage from "./components/OtherPagesMessage";
+import generateID from "./utils/generateID";
 
 function App() {
+  const _SIDEBAR_ITEMS = [
+    {id: generateID('menuItem'),text: "Home", linkURL: "/", icon:<i className="fas fa-home"/>, altMsg: "home"},
+    {id: generateID('menuItem'),text: "Dashboard", linkURL: "/dashboard", icon: <i className="fas fa-grip-vertical"/>, altMsg: "home"},
+    {id: generateID('menuItem'),text: "Inbox", linkURL: "/inbox", icon: <i className="fas fa-envelope"/>, altMsg: "home"},
+    {id: generateID('menuItem'),text: "Products", linkURL: "/products", icon: <i className="fas fa-barcode"/>, altMsg: "home"},
+    {id: generateID('menuItem'),text: "Invoices", linkURL: "/invoices", icon: <i className="fas fa-receipt"/>, altMsg: "home"},
+    {id: generateID('menuItem'),text: "Customers", linkURL: "/customers", icon: <i className="fas fa-user"/>, altMsg: "home"},
+    {id: generateID('menuItem'),text: "Chat Room", linkURL: "/chat", icon: <i className="fas fa-comment-alt"/>, altMsg: "home"},
+    {id: generateID('menuItem'),text: "Calendar", linkURL: "/calendar", icon: <i className="fas fa-calendar-alt"/>, altMsg: "home"},
+    {id: generateID('menuItem'),text: "Help Center", linkURL: "/help", icon: <i className="fas fa-question-circle"/>, altMsg: "home"},
+    {id: generateID('menuItem'),text: "Settings", linkURL: "/settings", icon: <i className="fas fa-cog"/>, altMsg: "home"}
+  ];
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <SideBar items={_SIDEBAR_ITEMS}/>
+      <Switch>
+        <Route path={"/calendar"} component={CustomCalendar} exact/>
+        <Route path={"/error"} component={OtherPagesMessage} exact/>
+        <Route path={"/"} exact/>
+        <Redirect from={"*"} to={"/error"}/>
+      </Switch>
     </div>
   );
 }

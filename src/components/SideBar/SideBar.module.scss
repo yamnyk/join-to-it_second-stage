@@ -1,0 +1,84 @@
+@import "src/variables";
+
+.SideBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  overflow-y: scroll;
+  background-color: $primary;
+  color: white;
+  font-size: 15px;
+
+  &__Link {
+    text-decoration: none;
+    color: white;
+  }
+
+  &__company {
+    display: block;
+    font-weight: bold;
+    padding: 25px 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    background-color: $primaryDark;
+    transition: color $transitionMedium linear;
+
+    &:hover {
+      color: $secondaryBright;
+    }
+  }
+
+  &__List {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__Item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 17px 30px;
+    margin: 6px 0;
+    transition: $transitionMedium background-color, padding-left $transitionMedium;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      display: inline-block;
+      height: 100%;
+      width: 5px;
+      background-color: $secondaryBright;
+      opacity: 0;
+      transition: opacity $transitionMedium linear;
+    }
+
+    &:hover {
+      background-color: $primaryDark;
+      padding-left: 35px;
+
+      & .SideBar__Icon {
+        color: $secondaryBright;
+      }
+
+      &::before {
+        content: '';
+        opacity: 1;
+      }
+    }
+  }
+
+  &__Icon {
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    transition: color $transitionMedium linear;
+  }
+}
