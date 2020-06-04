@@ -59,7 +59,7 @@
       transition: opacity $transitionMedium linear;
     }
 
-    &:hover {
+    &_Active {
       background-color: $primaryDark;
       padding-left: 35px;
 
@@ -71,6 +71,10 @@
         content: '';
         opacity: 1;
       }
+    }
+
+    &:hover {
+      @extend .SideBar__Item_Active;
     }
   }
 
