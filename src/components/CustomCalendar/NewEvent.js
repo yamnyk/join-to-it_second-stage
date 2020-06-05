@@ -3,8 +3,8 @@ import styles from './CustomCalendarStyle.module.scss'
 import dateParser from "../../utils/dateParser";
 
 const NewEvent = ({modal, setIsShowing: handleClose, events, setEvents}) => {
-  const {box, bounds, start, end} = modal.event,
-    [newEvent, setNewEvent] = useState({});
+  const {box, bounds, start, end} = modal.event;
+  
   let coords = {...box};
   if (bounds) {
     coords = {
