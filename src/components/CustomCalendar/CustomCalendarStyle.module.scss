@@ -1,0 +1,55 @@
+@import "src/variables";
+
+.Calendar {
+
+  &__Wrapper {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px 0 #0000000A;
+  }
+
+  &__Title {
+    font-weight: 400;
+    font-size: 28px;
+    margin-bottom: 32px;
+  }
+}
+
+.NewEvent {
+  width: 200px;
+  height: 275px;
+  padding: 25px;
+  border-radius: 10px;
+  border: 1px solid $textColor;
+  box-shadow: 0 3px 18px 0 #00000029;
+  background-color: white;
+  transform: translateX(-50%);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -18px;
+    left: calc(50% - 8px);
+    display: inline-block;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid $textColor;
+  }
+
+  &__Wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    z-index: 110;
+  }
+
+  &__Close {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
