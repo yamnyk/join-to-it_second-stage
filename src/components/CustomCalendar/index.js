@@ -20,22 +20,10 @@ function CustomCalendar() {
   };
   
   const handleSelect = (event) => {
-    const {start, end, box} = event;
-    console.log(event.box);
     setModal({
       isShowing: true,
-      coords: {...box}
+      event,
     });
-    // const title = window.prompt('New Event name');
-    // if (title)
-      setEvents([
-        ...events,
-        {
-          start,
-          end,
-          // title,
-        },
-      ])
   };
   
   return (
@@ -44,7 +32,12 @@ function CustomCalendar() {
       
       <div className={styles.Calendar__Wrapper}>
         {
-          modal.isShowing && <NewEvent coords={modal.coords} setIsShowing={handleCloseModal}/>
+          modal.isShowing && <NewEvent
+            modal={{...modal}}
+            setIsShowing={handleCloseModal}
+            events={[...events]}
+            setEvents={setEvents}
+          />
         }
         <DnDCalendar
           selectable
