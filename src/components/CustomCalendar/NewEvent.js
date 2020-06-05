@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import styles from './CustomCalendarStyle.module.scss'
 import dateParser from "../../utils/dateParser";
+import generateID from "../../utils/generateID";
 
-const NewEvent = ({modal, setIsShowing: handleClose, events, setEvents}) => {
-  const {box, bounds, start, end} = modal.event;
+const NewEvent = ({modal, handleClose, events, setEvents}) => {
+  const {id, box, bounds, start, title, notes} = modal.event;
   
   let coords = {...box};
   if (bounds) {
@@ -21,19 +22,49 @@ const NewEvent = ({modal, setIsShowing: handleClose, events, setEvents}) => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = new FormData(e.target);
+    const data = new FormData(e.target),
+      dateStart = new Date([data.get('startDate'), data.get('startTime')].join(' ')),
+      dateEnd = new Date(dateStart),
+      formDataObj = {
+        title: data.get('title'),
+        start: dateStart,
+        end: dateEnd,
+        notes: data.get('notes')
+      };
     
+    dateEnd.setHours(dateEnd.getHours() + 1);
+    
+    let newEvent = {};
+    const eventFromStorage = events.find(e => e.id === id);
+    
+    if (!eventFromStorage) {
+      newEvent = {
+        id: generateID('event_'),
+        ...formDataObj
+      };
+    } else {
+      newEvent = {
+        ...eventFromStorage,
+        ...formDataObj
+      }
+      events.splice(events.indexOf(eventFromStorage), 1);
+    }
     setEvents([
       ...events,
-      {
-        title: data.get('title'),
-        start: new Date([data.get('startDate'), data.get('startTime')].join(' ')),
-        end,
-        notes: data.get('notes')
-      }
+      newEvent
     ]);
     handleClose();
   };
+  
+  const handlerDelete = () => {
+    const selectedEvent = events.find(ev => ev.id === id),
+      eventsCopy = [...events];
+    
+    eventsCopy.splice(events.indexOf(selectedEvent), 1)
+    
+    setEvents(eventsCopy);
+    handleClose();
+  }
   
   return (
     <div className={styles.NewEvent__Wrap}>
@@ -41,11 +72,13 @@ const NewEvent = ({modal, setIsShowing: handleClose, events, setEvents}) => {
         onSubmit={e => handleSubmit(e)}
         className={styles.NewEvent}
         style={positionStyles}>
+        
         <i className={["far fa-times-circle", styles.NewEvent__Close].join(' ')} onClick={() => handleClose(false)}/>
+        
         <label className={styles.NewEvent__Label}>
           event name
           <input name={'title'} type="text"
-                 className={styles.NewEvent__Input}/>
+                 className={styles.NewEvent__Input} defaultValue={title}/>
         </label>
         <label>
           event date
@@ -62,9 +95,9 @@ const NewEvent = ({modal, setIsShowing: handleClose, events, setEvents}) => {
         </label>
         <label>
           notes
-          <input name={'notes'} type="text"/>
+          <input name={'notes'} type="text" defaultValue={notes}/>
         </label>
-        <input type="reset" value={'Cancel'} onClick={handleClose}/>
+        <input type="reset" value={'Cancel'} onClick={handlerDelete}/>
         <input type="submit" value={'Save'}/>
       </form>
     </div>

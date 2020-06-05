@@ -6,7 +6,6 @@ import {Calendar, momentLocalizer} from 'react-big-calendar';
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import './CalendarDefStyles.scss';
 import NewEvent from "./NewEvent";
-import dateParser from "../../utils/dateParser";
 
 const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar);
@@ -21,7 +20,6 @@ function CustomCalendar() {
   };
   
   const handleSelect = (event) => {
-    console.log(dateParser(event.start));
     setModal({
       isShowing: true,
       event,
@@ -36,7 +34,7 @@ function CustomCalendar() {
         {
           modal.isShowing && <NewEvent
             modal={{...modal}}
-            setIsShowing={handleCloseModal}
+            handleClose={handleCloseModal}
             events={[...events]}
             setEvents={setEvents}
           />
@@ -47,7 +45,7 @@ function CustomCalendar() {
           events={events}
           startAccessor="start"
           endAccessor="end"
-          onSelectEvent={() => console.log('you selected teh event')}
+          onSelectEvent={handleSelect}
           onSelectSlot={handleSelect}
           style={{height: 500}}
         />
