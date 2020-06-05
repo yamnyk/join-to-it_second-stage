@@ -26,6 +26,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
   line-height: 1;
+  background-color: $secondary;
 }
 ol, ul {
   list-style: none;
@@ -48,5 +49,4 @@ table {
   padding: 35px 75px 0;
   margin-left: $sideBarWidth;
   margin-top: $topNavHeight;
-  background-color: $secondary;
 }
