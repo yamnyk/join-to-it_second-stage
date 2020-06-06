@@ -19,15 +19,16 @@ function CustomCalendar() {
     setModal({...modal, isShowing: false})
   };
   
-  const handleSelect = (event) => {
+  const handleSelect = (event, isOnEvent) => {
     setModal({
       isShowing: true,
       event,
+      isOnEvent
     });
   };
   
   return (
-    <div className={'Container'}>
+    <div className={['Container', styles.Calendar].join(' ')}>
       <h2 className={styles.Calendar__Title}>Calendar</h2>
       
       <div className={styles.Calendar__Wrapper}>
@@ -46,8 +47,8 @@ function CustomCalendar() {
           eventPropGetter={(e) => ({style: {background: e.color}})}
           startAccessor="start"
           endAccessor="end"
-          onSelectEvent={handleSelect}
-          onSelectSlot={handleSelect}
+          onSelectEvent={e => handleSelect(e, true)}
+          onSelectSlot={e => handleSelect(e, false)}
           style={{height: 850}}
         />
       </div>

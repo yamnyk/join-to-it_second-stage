@@ -1,2 +1,130 @@
+@import "src/variables";
 @import 'react-big-calendar/lib/sass/styles';
 @import 'react-big-calendar/lib/addons/dragAndDrop/styles';
+
+.rbc {
+  &-month-view {
+    border-color: $secondary !important;
+  }
+
+  &-time {
+    &-view {
+      border: 1px solid $secondary !important;
+
+      & .rbc-row {
+        min-height: initial;
+      }
+    }
+
+    &-header {
+      border: 1px solid $secondary !important;
+
+      &-content {
+        border: 1px solid $secondary !important;
+      }
+    }
+
+    &-content {
+      border: 1px solid $secondary !important;
+    }
+  }
+
+  &-time {
+    &-slot {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      border: none !important;
+      font-size: 13px;
+      color: $textColor;
+    }
+
+    &slot {
+      &-group {
+        padding: 0 6px;
+        border-color: $secondary !important;
+      }
+    }
+  }
+
+  &-date {
+    &-cell {
+      margin: 17px 15px 0 0;
+      color: $textColor;
+    }
+  }
+
+  &-day {
+    &-slot {
+      & .rbc-timeslot-group {
+        border: 1px solid #EAF0F4!important;
+      }
+    }
+    &-bg {
+      border-color: $secondary !important;
+    }
+  }
+
+  &-off-range {
+    color: $secondaryDark !important;
+
+    &-bg {
+      background-color: initial !important;
+    }
+
+  }
+
+  &-today {
+    background-color: $secondary !important;
+  }
+
+  &-header {
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 15px 0;
+    background-color: $secondary;
+    border-color: $secondary !important;
+    color: $secondaryDark !important;
+
+    & span {
+      display: inline-block;
+    }
+  }
+
+  &-btn-group {
+    box-shadow: 0 2px 3px 0 #0000000D;
+  }
+
+  &-active {
+    background-color: initial !important;
+    color: $privaryEvent !important;
+    border-color: $secondary !important;
+    box-shadow: none !important;
+  }
+
+  &-toolbar {
+    &-label {
+      font-size: 18px;
+    }
+
+
+    & button {
+      color: $textColor;
+      font-size: 13px;
+      padding: 10px 18px;
+      transition: color $transitionMedium linear;
+      border-color: $secondary;
+      outline: none;
+
+      &:hover {
+        background-color: initial;
+        color: $privaryEvent;
+        border-color: $secondary;
+      }
+
+      &:active, .rbc-toolbar button.rbc-active {
+        @extend .rbc-active;
+      }
+    }
+  }
+}

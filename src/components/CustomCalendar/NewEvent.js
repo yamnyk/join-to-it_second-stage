@@ -2,29 +2,26 @@ import React, {useState} from 'react';
 import styles from './CustomCalendarStyle.module.scss'
 import dateParser from "../../utils/dateParser";
 import generateID from "../../utils/generateID";
+import validateCoordinates from "../../utils/validateCoordinates";
 
 const NewEvent = ({modal, handleClose, events, setEvents}) => {
-  const {id, box, bounds, start, title, notes, color} = modal.event;
+  const {id, box, bounds, start, end, title, notes, color} = modal.event,
+    [error, setError] = useState(null);
   
-  let coords = {...box};
-  if (bounds) {
-    coords = {
-      clientY: bounds.top,
-      clientX: bounds.left
-    };
-  }
+  let coords = validateCoordinates(box, bounds);
   
   const positionStyles = {
     position: 'absolute',
     top: coords.clientY + "px",
     left: `${coords.clientX - 260}px`,
+    arrow: coords.arrow
   };
   
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.target),
       dateStart = new Date([data.get('startDate'), data.get('startTime')].join(' ')),
-      dateEnd = new Date(dateStart),
+      dateEnd = new Date(end),
       formDataObj = {
         title: data.get('title'),
         start: dateStart,
@@ -35,12 +32,27 @@ const NewEvent = ({modal, handleClose, events, setEvents}) => {
         color: data.get('color')
       };
     
-    dateEnd.setHours(dateEnd.getHours() + 1);
+    if (dateStart.getTime() === dateEnd.getTime()) {
+      dateEnd.setHours(dateStart.getHours() + 1);
+    }
+    
+    if (Date.now() > dateStart.getTime()) {
+      setError('Incorrect date');
+      return
+    }
+    
+    for (let pair of data.entries()) {
+      if (pair.some(el => Boolean(el) === false)) {
+        setError("You should fill all the fields");
+        return;
+      }
+    }
     
     let newEvent = {};
     const eventFromStorage = events.find(e => e.id === id);
     
     if (!eventFromStorage) {
+      formDataObj.start = new Date(data.get('startDate') + ' ' + data.get('startTime'))
       newEvent = {
         id: generateID('event_'),
         ...formDataObj
@@ -52,6 +64,7 @@ const NewEvent = ({modal, handleClose, events, setEvents}) => {
       }
       events.splice(events.indexOf(eventFromStorage), 1);
     }
+    
     setEvents([
       ...events,
       newEvent
@@ -59,7 +72,7 @@ const NewEvent = ({modal, handleClose, events, setEvents}) => {
     handleClose();
   };
   
-  const handlerDelete = () => {
+  const handleDelete = () => {
     const selectedEvent = events.find(ev => ev.id === id),
       eventsCopy = [...events];
     
@@ -75,8 +88,11 @@ const NewEvent = ({modal, handleClose, events, setEvents}) => {
         onSubmit={e => handleSubmit(e)}
         className={styles.NewEvent}
         style={positionStyles}>
+        <div className={styles.NewEvent__Arrow} style={positionStyles.arrow}/>
         
         <i className={["far fa-times-circle", styles.NewEvent__Close].join(' ')} onClick={() => handleClose(false)}/>
+        
+        <p className={[styles.NewEvent__Button_Cancel, styles.NewEvent__Error].join(' ')}>{error}</p>
         
         <label className={styles.NewEvent__Label}>
           event name
@@ -118,8 +134,8 @@ const NewEvent = ({modal, handleClose, events, setEvents}) => {
         <div className={styles.NewEvent__Buttons}>
           <input className={[styles.NewEvent__Button, styles.NewEvent__Button_Cancel].join(' ')}
                  type="reset"
-                 value={'Cancel'}
-                 onClick={handlerDelete}/>
+                 value={modal.isOnEvent ? 'discard' : 'cancel'}
+                 onClick={handleDelete}/>
           <input className={styles.NewEvent__Button}
                  type="submit"
                  value={'Save'}/>

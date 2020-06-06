@@ -1,7 +1,7 @@
 @import "src/variables";
 
 .Calendar {
-
+  padding-bottom: 150px;
   &__Wrapper {
     padding: 20px;
     background-color: #fff;
@@ -28,20 +28,18 @@
   background-color: white;
   transform: translateX(-50%);
 
-  &::before {
-    content: '';
+  &__Arrow {
     position: absolute;
-    top: -18px;
     left: calc(50% - 8px);
     display: inline-block;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
     border-top: 9px solid transparent;
-    border-bottom: 9px solid $textColor;
+    border-bottom: 9px solid transparent;
   }
 
   &__Wrap {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: $sideBarWidth;
     right: 0;
@@ -50,12 +48,21 @@
     z-index: 99;
   }
 
+  &__Error {
+    width: 70%;
+    position: absolute;
+    top: 10px;
+    left: 20%;
+    font-size: 13px;
+  }
+
   &__Close {
     position: absolute;
     top: 6px;
     right: 7px;
     font-size: 20px;
     color: $secondaryDark;
+    cursor: pointer;
   }
 
   &__Label {
@@ -79,7 +86,6 @@
       font-style: italic;
       color: $secondaryDark;
     }
-
 
     &::-webkit-calendar-picker-indicator {
       display: none;
