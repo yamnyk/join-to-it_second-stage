@@ -4,7 +4,7 @@ import dateParser from "../../utils/dateParser";
 import generateID from "../../utils/generateID";
 
 const NewEvent = ({modal, handleClose, events, setEvents}) => {
-  const {id, box, bounds, start, title, notes} = modal.event;
+  const {id, box, bounds, start, title, notes, color} = modal.event;
   
   let coords = {...box};
   if (bounds) {
@@ -29,7 +29,10 @@ const NewEvent = ({modal, handleClose, events, setEvents}) => {
         title: data.get('title'),
         start: dateStart,
         end: dateEnd,
-        notes: data.get('notes')
+        notes: data.get('notes'),
+        box,
+        bounds,
+        color: data.get('color')
       };
     
     dateEnd.setHours(dateEnd.getHours() + 1);
@@ -77,28 +80,50 @@ const NewEvent = ({modal, handleClose, events, setEvents}) => {
         
         <label className={styles.NewEvent__Label}>
           event name
-          <input name={'title'} type="text"
-                 className={styles.NewEvent__Input} defaultValue={title}/>
+          <input className={styles.NewEvent__Input}
+                 name={'title'}
+                 type="text"
+                 defaultValue={title}/>
         </label>
-        <label>
+        <label className={styles.NewEvent__Label}>
           event date
-          <input name={'startDate'}
+          <input className={[styles.NewEvent__Input, styles.NewEvent__Input_Date].join(' ')}
+                 name={'startDate'}
                  type="date"
                  defaultValue={dateParser(start).date}/>
+          <i className={["far fa-calendar-alt", styles.NewEvent__Input_Date_Icon].join(' ')}/>
         </label>
-        <label>
-          event end
-          <input name={'startTime'}
+        <label className={styles.NewEvent__Label}>
+          event time
+          <input className={styles.NewEvent__Input}
+                 name={'startTime'}
                  type="time"
                  onChange={e => e}
                  defaultValue={dateParser(start).time}/>
+          <i className={["far fa-clock", styles.NewEvent__Input_Date_Icon].join(' ')}/>
         </label>
-        <label>
+        <label className={styles.NewEvent__Input_Color}>
+          <input name={'color'}
+                 type="color"
+                 defaultValue={color || "#3B86FF"}/>
+        </label>
+        
+        <label className={styles.NewEvent__Label}>
           notes
-          <input name={'notes'} type="text" defaultValue={notes}/>
+          <input className={styles.NewEvent__Input}
+                 name={'notes'}
+                 type="text"
+                 defaultValue={notes}/>
         </label>
-        <input type="reset" value={'Cancel'} onClick={handlerDelete}/>
-        <input type="submit" value={'Save'}/>
+        <div className={styles.NewEvent__Buttons}>
+          <input className={[styles.NewEvent__Button, styles.NewEvent__Button_Cancel].join(' ')}
+                 type="reset"
+                 value={'Cancel'}
+                 onClick={handlerDelete}/>
+          <input className={styles.NewEvent__Button}
+                 type="submit"
+                 value={'Save'}/>
+        </div>
       </form>
     </div>
   );

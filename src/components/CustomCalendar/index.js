@@ -12,7 +12,7 @@ const DnDCalendar = withDragAndDrop(Calendar);
 
 
 function CustomCalendar() {
-  const [events, setEvents] = useState([]),
+  const [events, setEvents] = useState(localStorage.getItem('events') || []),
     [modal, setModal] = useState({isShowing: false});
   
   const handleCloseModal = () => {
@@ -43,11 +43,12 @@ function CustomCalendar() {
           selectable
           localizer={localizer}
           events={events}
+          eventPropGetter={(e) => ({style: {background: e.color}})}
           startAccessor="start"
           endAccessor="end"
           onSelectEvent={handleSelect}
           onSelectSlot={handleSelect}
-          style={{height: 500}}
+          style={{height: 850}}
         />
       </div>
     </div>
