@@ -1,7 +1,6 @@
 {
   "short_name": "Calendar",
   "name": "Calendar JoinToIT test task",
-  "start_url": ".",
   "icons": [
     {
       "src": "favicon.ico",
