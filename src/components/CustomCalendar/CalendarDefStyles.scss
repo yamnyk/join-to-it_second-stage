@@ -16,6 +16,10 @@
     &-view {
       border: 1px solid $secondary !important;
 
+      & .rbc-allday-cell {
+        height: initial;
+      }
+
       & .rbc-row {
         min-height: initial !important;
       }
