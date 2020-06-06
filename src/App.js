@@ -83,7 +83,7 @@ function App() {
         <Route path={"/calendar"} component={CustomCalendar} exact/>
         <Route path={"/error"} component={OtherPagesMessage} exact/>
         <Route path={"/"} exact/>
-        <Redirect from={"*"} to={"/error"}/>
+        <Redirect from={`*`} to={"/error"}/>
       </Switch>
     </div>
   );

@@ -32,10 +32,12 @@ const NewEvent = ({modal, handleClose, events, setEvents}) => {
         color: data.get('color')
       };
     
+    modal.event.title = data.get('title')
+    
     if (dateStart.getTime() === dateEnd.getTime()) {
       dateEnd.setHours(dateStart.getHours() + 1);
     }
-    
+
     if (Date.now() > dateStart.getTime()) {
       setError('Incorrect date');
       return
@@ -50,24 +52,28 @@ const NewEvent = ({modal, handleClose, events, setEvents}) => {
     
     let newEvent = {};
     const eventFromStorage = events.find(e => e.id === id);
-    
+
     if (!eventFromStorage) {
       formDataObj.start = new Date(data.get('startDate') + ' ' + data.get('startTime'))
       newEvent = {
         id: generateID('event_'),
-        ...formDataObj
+        ...formDataObj,
+        dateStart,
+        dateEnd
       };
     } else {
       newEvent = {
         ...eventFromStorage,
-        ...formDataObj
+        ...formDataObj,
+        dateStart,
+        dateEnd
       }
       events.splice(events.indexOf(eventFromStorage), 1);
     }
     
     setEvents([
       ...events,
-      newEvent
+      newEvent,
     ]);
     handleClose();
   };

@@ -3,6 +3,11 @@
 @import 'react-big-calendar/lib/addons/dragAndDrop/styles';
 
 .rbc {
+
+  &-allday-cell {
+    min-height: 0 !important;
+  }
+
   &-month-view {
     border-color: $secondary !important;
   }
@@ -12,7 +17,7 @@
       border: 1px solid $secondary !important;
 
       & .rbc-row {
-        min-height: initial;
+        min-height: initial !important;
       }
     }
 
@@ -57,9 +62,10 @@
   &-day {
     &-slot {
       & .rbc-timeslot-group {
-        border: 1px solid #EAF0F4!important;
+        border: 1px solid #EAF0F4 !important;
       }
     }
+
     &-bg {
       border-color: $secondary !important;
     }

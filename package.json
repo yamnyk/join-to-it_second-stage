@@ -2,6 +2,7 @@
   "name": "join-to-it_second-stage",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://yamnyk.github.io/join-to-it_second-stage/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",

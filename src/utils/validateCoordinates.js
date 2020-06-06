@@ -3,8 +3,6 @@ export default function validateCoordinates(box, bounds, screenSize) {
     {top, left} = bounds || {},
     arrow = {top: -18, bottom: null, borderBottomColor: '#4D4F5C', borderTopColor: null};
   
-  console.log(box);
-  
   if (clientY >= 600 || top >= 600) {
     clientY = clientY - 350;
     top = top - 350;

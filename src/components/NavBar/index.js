@@ -6,7 +6,7 @@ const NavBar = props => {
   
   return (
     <div className={styles.NavBar}>
-      <form action="" className={styles.NavBar__Search}>
+      <form action="" className={styles.NavBar__Search} onSubmit={e => e.preventDefault()}>
         <button className={styles.NavBar__SearchSubmit} type="submit">
           <i className={["fas fa-search", styles.NavBar__SearchIcon].join(' ')}/>
         </button>
